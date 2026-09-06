@@ -74,6 +74,7 @@ Rules:
 - Review your own diff before reporting: run /fix-code, fix the real findings, re-run the verify bullets. Code review is your job, not the spec session's.
 - Do not commit unless CLAUDE.md or the user says to.
 - When done, report to the user in your own session, never to the spec session, in four parts: what was built; every deviation and why ("None" must be stated); any Outcome bullet you could not verify and what blocked it; and a section headed exactly "Spec issues" with one bullet per defect you found in the spec, naming the section, what is wrong, and what you did. The user pastes that section to the spec session verbatim, so it must stand alone: no "as above", no "see deviation 2". "None" must be stated explicitly.
+- End the report with one line starting "Carry to the spec session:" that names what goes back: the Spec issues section above whenever it has at least one bullet, the blocker in part 3 whenever you are blocked, both when both apply. When neither applies the line is "Nothing to carry to the spec session." Every Spec issues bullet goes back, including defects you already handled; the spec session fixes the spec text so the next reader doesn't hit them. Never filter.
 ```
 
 ## Asking, when you must
@@ -98,7 +99,7 @@ clean. First line:
   bullet fails and can't be fixed, a load-bearing question is unanswered, the
   strategy can't run. Same four parts, blocker in part 3.
 
-Then the four parts:
+Then the four parts and a closing line:
 
 1. What was built, in a few lines.
 2. Every deviation from the spec and why. "None" must be stated.
@@ -110,5 +111,22 @@ Then the four parts:
    explicitly. The user pastes this section into the spec session verbatim,
    so it has to stand alone without the rest of your report: no "as above",
    no "see deviation 2".
+
+5. **Closing line.** One line telling the user what to carry over, so they
+   never have to triage the report themselves:
+
+   - `Carry to the spec session: the Spec issues section above.` when that
+     section has at least one bullet.
+   - `Carry to the spec session: the blocker in part 3.` when you are blocked
+     and Spec issues is None. When both apply: `Carry to the spec session: the
+     blocker in part 3, plus the Spec issues section above.`
+   - `Nothing to carry to the spec session.` when Spec issues is None and you
+     are not blocked.
+
+   Every Spec issues bullet goes back, including defects you already handled
+   the obvious way and defects that changed nothing. The spec session fixes
+   the spec text so the next reader doesn't hit them; whether anything comes
+   back to you is its call, not yours. Never filter the section down to what
+   you think matters.
 
 Then stop.
