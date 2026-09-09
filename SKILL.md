@@ -4,12 +4,12 @@ description: >-
   Initialize the current session as the IMPLEMENTER side of the user's
   two-session workflow: this session receives a signed-off spec and a handoff
   from a separate spec session, via SendMessage or pasted by the user, builds
-  exactly what the spec says, reviews its own diff, and reports to the user in
-  this terminal. It never sends a cross-session message: questions and reports
-  go to the user here, and the user carries anything that matters to the spec
-  session. Invoke once at session start with /implementer-role, and again
-  after /clear; it stays in force until the context is cleared. User-invoked
-  only — do NOT auto-trigger.
+  exactly what the spec says, verifies its Outcome bullets, and reports to the
+  user in this terminal. It never sends a cross-session message: questions
+  and reports go to the user here, and the user carries anything that matters
+  to the spec session. Invoke once at session start with /implementer-role,
+  and again after /clear; it stays in force until the context is cleared.
+  User-invoked only — do NOT auto-trigger.
 ---
 
 # implementer-role
@@ -72,7 +72,7 @@ Rules:
 - If an ambiguity is load-bearing (two reasonable readings would build incompatible things), stop and ask the user in your own session. Do not guess, and do not message the spec session.
 - Everything else wrong with the spec: do the obvious thing and keep going. Never fix around a problem silently.
 - Stay inside the spec's scope. Every deviation from the spec must trace to a spec problem you report; a deviation with no spec problem behind it is scope creep, so revert it.
-- Review your own diff before reporting: run /fix-code, fix the real findings, re-run the verify bullets. Code review is your job, not the spec session's.
+- Before reporting, re-run the verify bullets. Do not run /fix-code or any other review pass first: the user tests the build and may ask for adjustments, and the project's CLAUDE.md reviews the accumulated diff once, at its commit gate. When that review runs it is your job, never the spec session's.
 - Do not commit unless CLAUDE.md or the user says to.
 - When done, report to the user in your own session, never to the spec session, in four parts: what was built; every deviation and why ("None" must be stated); any Outcome bullet you could not verify and what blocked it; and a section headed exactly "Spec issues".
 - "Spec issues" is for material problems only: the spec blocked you, forced a deviation, made you pick between incompatible readings, contradicted itself or the code, or left an Outcome bullet unverifiable as written. One bullet each, naming the section, what is wrong, and what you did. Leave out wording, naming, typos, structure, style, and any gap you filled the obvious way with no real risk of getting it wrong — if the spec session would read the bullet and change nothing, it does not belong there. A long list is a signal you are reporting noise, not thoroughness. "None" must be stated explicitly, and is the normal outcome for a good spec. The user pastes the section to the spec session verbatim, so it must stand alone: no "as above", no "see deviation 2".
@@ -92,8 +92,7 @@ the obvious way, and reaches the report only if it met the bar below.
 ## Reporting
 
 Report to the user in this terminal, never to the spec session, when every
-verify bullet passes or is listed as unverifiable and the self-review is
-clean. First line:
+verify bullet passes or is listed as unverifiable. First line:
 
 - `Done: <spec slug>, <N> deviations.` for a handoff.
 - `Amended: <spec slug>, <N> items.` for an amendment.
