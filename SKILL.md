@@ -100,7 +100,7 @@ verify bullet passes or is listed as unverifiable. First line:
   bullet fails and can't be fixed, a load-bearing question is unanswered, the
   strategy can't run. Same four parts, blocker in part 3.
 
-Then the four parts and a closing line:
+Then the four parts, a closing line, and the clipboard offer:
 
 1. What was built, in a few lines.
 2. Every deviation from the spec and why. "None" must be stated.
@@ -145,5 +145,20 @@ Then the four parts and a closing line:
    yours. The filter is materiality and nothing else — don't drop a real
    problem because you worked around it, and don't pad the section to show
    your reading was careful.
+
+6. **Offer the clipboard.** Only when there is something to carry — Spec
+   issues has at least one bullet, or you are blocked. Ask the user with
+   AskUserQuestion: "Copy the carry-over text to the clipboard?", options
+   "Copy" and "Don't copy". On "Copy", pipe the text through `pbcopy` using a
+   quoted heredoc so nothing is re-expanded, then confirm in one line:
+   `Copied to clipboard.`
+
+   Copy exactly what the closing line names and nothing else from the report:
+   the Spec issues section verbatim under its own heading, the blocker from
+   part 3, or both. It is what the user pastes into the spec session, so it
+   must read the same way it does above.
+
+   Never copy without asking, and never ask when the closing line is
+   "Nothing to carry to the spec session."
 
 Then stop.
